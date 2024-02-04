@@ -77,6 +77,10 @@ void Game::processEvents()
 		{
 			processKeys(newEvent);
 		}
+		if (sf::Event::MouseButtonReleased == newEvent.type)
+		{
+			processMouseBUttonUp(newEvent);
+		}
 	}
 }
 
@@ -90,6 +94,23 @@ void Game::processKeys(sf::Event t_event)
 	if (sf::Keyboard::Escape == t_event.key.code)
 	{
 		m_exitGame = true;
+	}
+}
+
+void Game::processMouseBUttonUp(sf::Event t_event)
+{
+	sf::Vector2f heading{ 0.0f,0.0f };
+	m_desiredPosition.x = t_event.mouseButton.x;
+	m_desiredPosition.y = t_event.mouseButton.y;
+	if (m_position.x < m_desiredPosition.x)
+	{
+		m_direction = Direction::Right;
+		m_helicopterSprite.setScale(1.0F, 1.0F);
+	}
+	if (m_position.x > m_desiredPosition.x)
+	{
+		m_direction = Direction::Left;
+		m_helicopterSprite.setScale(-1.0f, 1.0f);
 	}
 }
 

@@ -11,6 +11,16 @@
 /// </summary>
 #include <SFML/Graphics.hpp>
 
+enum class Direction
+{
+	None,
+	Up,
+	Down,
+	Left,
+	Right
+};
+
+
 class Game
 {
 public:
@@ -25,6 +35,7 @@ private:
 
 	void processEvents();
 	void processKeys(sf::Event t_event);
+	void processMouseBUttonUp(sf::Event t_event);
 	void update(sf::Time t_deltaTime);
 	void render();
 	
@@ -42,6 +53,9 @@ private:
 	int m_frameNo{ 0 }; // frame setup of the 0-3 helo images
 	float m_frameValue{ 0.0f }; // current frame number
 	float m_frameIncrement{ 0.50f }; // the increase of each frame
+	sf::Vector2f m_position{ 200.0f,200.0f }; // current helo position
+	sf::Vector2f m_desiredPosition{ 0.0f,0.0f }; // position user chooses "direction"
+	Direction m_direction{ Direction::None };
 };
 
 #endif // !GAME_HPP
