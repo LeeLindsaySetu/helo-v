@@ -30,6 +30,7 @@ private:
 	
 	void setupFontAndText();
 	void setupSprite();
+	void animateHelicopter();
 
 	sf::RenderWindow m_window; // main SFML window
 	sf::Font m_ArialBlackfont; // font used by message
@@ -38,6 +39,9 @@ private:
 	sf::Sprite m_helicopterSprite; // sprite used for sfml logo
 	bool m_exitGame; // control exiting game
 
+	int m_frameNo{ 0 }; // frame setup of the 0-3 helo images
+	float m_frameValue{ 0.0f }; // current frame number
+	float m_frameIncrement{ 0.50f }; // the increase of each frame
 };
 
 #endif // !GAME_HPP
