@@ -1,6 +1,6 @@
 /// <summary>
-/// @author Peter Lowe
-/// @date May 2019
+/// @author Lee Lindsay
+/// @date 03/02/24
 ///
 /// you need to change the above lines or lose marks
 /// </summary>
@@ -112,7 +112,7 @@ void Game::render()
 {
 	m_window.clear(sf::Color::White);
 	m_window.draw(m_welcomeMessage);
-	m_window.draw(m_logoSprite);
+	m_window.draw(m_helicopterSprite);
 	m_window.display();
 }
 
@@ -141,11 +141,14 @@ void Game::setupFontAndText()
 /// </summary>
 void Game::setupSprite()
 {
-	if (!m_logoTexture.loadFromFile("ASSETS\\IMAGES\\SFML-LOGO.png"))
+	if (!m_helicopterTexture.loadFromFile("ASSETS\\IMAGES\\helicopter.png"))
 	{
 		// simple error message if previous call fails
 		std::cout << "problem loading logo" << std::endl;
 	}
-	m_logoSprite.setTexture(m_logoTexture);
-	m_logoSprite.setPosition(300.0f, 180.0f);
+	//helicopter image set up
+	m_helicopterSprite.setTexture(m_helicopterTexture);
+	m_helicopterSprite.setPosition(200.0f, 200.0f);
+	m_helicopterSprite.setOrigin(90.0f, 32.0f);
+	m_helicopterSprite.setTextureRect(sf::IntRect(0, 0, 180, 64));
 }
