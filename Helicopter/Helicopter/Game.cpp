@@ -100,18 +100,25 @@ void Game::processKeys(sf::Event t_event)
 void Game::processMouseBUttonUp(sf::Event t_event)
 {
 	sf::Vector2f heading{ 0.0f,0.0f };
+	float magnitude;
 	m_desiredPosition.x = t_event.mouseButton.x;
 	m_desiredPosition.y = t_event.mouseButton.y;
 	if (m_position.x < m_desiredPosition.x)
 	{
 		m_direction = Direction::Right;
 		m_helicopterSprite.setScale(1.0F, 1.0F);
+		m_frameIncrement = 0.50f;
 	}
 	if (m_position.x > m_desiredPosition.x)
 	{
 		m_direction = Direction::Left;
 		m_helicopterSprite.setScale(-1.0f, 1.0f);
+		m_frameIncrement = 0.50f;
 	}
+	heading = m_desiredPosition - m_position;
+	magnitude = std::sqrtf(heading.x * heading.x + heading.y * heading.y);
+	heading = heading / magnitude;
+	m_velocity = heading * 6.0f;
 }
 
 /// <summary>
@@ -125,6 +132,7 @@ void Game::update(sf::Time t_deltaTime)
 		m_window.close();
 	}
 	animateHelicopter();
+	move();
 }
 
 /// <summary>
@@ -186,4 +194,31 @@ void Game::animateHelicopter()
 		m_helicopterSprite.setTextureRect(sf::IntRect(0, m_frameNo * 64, 180, 64));
 	}
 
+}
+
+void Game::move()
+{
+	m_position += m_velocity;
+	if (m_direction != Direction::None)
+	{
+		m_helicopterSprite.setPosition(m_position);
+		if (m_direction == Direction::Left)
+		{
+			if (m_position.x < m_desiredPosition.x)
+			{
+				m_direction = Direction::None;
+				m_velocity = sf::Vector2f{ 0.0f, 0.0f };
+				m_frameIncrement = 0.50f;
+			}
+		}
+		if (m_direction == Direction::Right)
+		{
+			if (m_position.x > m_desiredPosition.x)
+			{
+				m_direction = Direction::None;
+				m_velocity = sf::Vector2f{ 0.0f, 0.0f };
+				m_frameIncrement = 0.50f;
+			}
+		}
+	}
 }

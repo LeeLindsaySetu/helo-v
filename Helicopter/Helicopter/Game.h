@@ -42,6 +42,7 @@ private:
 	void setupFontAndText();
 	void setupSprite();
 	void animateHelicopter();
+	void move();
 
 	sf::RenderWindow m_window; // main SFML window
 	sf::Font m_ArialBlackfont; // font used by message
@@ -55,6 +56,7 @@ private:
 	float m_frameIncrement{ 0.50f }; // the increase of each frame
 	sf::Vector2f m_position{ 200.0f,200.0f }; // current helo position
 	sf::Vector2f m_desiredPosition{ 0.0f,0.0f }; // position user chooses "direction"
+	sf::Vector2f m_velocity{ 0.0f, 0.0f };
 	Direction m_direction{ Direction::None };
 };
 
