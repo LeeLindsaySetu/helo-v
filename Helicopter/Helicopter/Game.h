@@ -10,6 +10,7 @@
 /// Don't forget the endif at the bottom
 /// </summary>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 enum class Direction
 {
@@ -43,6 +44,7 @@ private:
 	void setupSprite();
 	void animateHelicopter();
 	void move();
+	void setupAudio();
 
 	sf::RenderWindow m_window; // main SFML window
 	sf::Font m_ArialBlackfont; // font used by message
@@ -53,10 +55,12 @@ private:
 
 	int m_frameNo{ 0 }; // frame setup of the 0-3 helo images
 	float m_frameValue{ 0.0f }; // current frame number
-	float m_frameIncrement{ 0.50f }; // the increase of each frame
+	float m_frameIncrement{ 0.10f }; // the increase of each frame
 	sf::Vector2f m_position{ 200.0f,200.0f }; // current helo position
 	sf::Vector2f m_desiredPosition{ 0.0f,0.0f }; // position user chooses "direction"
 	sf::Vector2f m_velocity{ 0.0f, 0.0f };
+	sf::SoundBuffer m_buffer;
+	sf::Sound m_sound;
 	Direction m_direction{ Direction::None };
 };
 

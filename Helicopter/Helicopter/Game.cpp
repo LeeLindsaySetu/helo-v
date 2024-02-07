@@ -17,11 +17,12 @@
 /// load and setup thne image
 /// </summary>
 Game::Game() :
-	m_window{ sf::VideoMode{ 800U, 600U, 32U }, "SFML Game" },
+	m_window{ sf::VideoMode{ 800U, 600U, 32U }, " Heli Game " },
 	m_exitGame{false} //when true game will exit
 {
 	setupFontAndText(); // load font 
 	setupSprite(); // load texture
+	setupAudio();
 }
 
 /// <summary>
@@ -107,13 +108,14 @@ void Game::processMouseBUttonUp(sf::Event t_event)
 	{
 		m_direction = Direction::Right;
 		m_helicopterSprite.setScale(1.0F, 1.0F);
-		m_frameIncrement = 0.50f;
+		m_frameIncrement = 0.10f;
+		
 	}
 	if (m_position.x > m_desiredPosition.x)
 	{
 		m_direction = Direction::Left;
 		m_helicopterSprite.setScale(-1.0f, 1.0f);
-		m_frameIncrement = 0.50f;
+		m_frameIncrement = 0.10f;
 	}
 	heading = m_desiredPosition - m_position;
 	magnitude = std::sqrtf(heading.x * heading.x + heading.y * heading.y);
@@ -156,10 +158,10 @@ void Game::setupFontAndText()
 		std::cout << "problem loading arial black font" << std::endl;
 	}
 	m_welcomeMessage.setFont(m_ArialBlackfont);
-	m_welcomeMessage.setString("SFML Game");
+	m_welcomeMessage.setString("Use Left Mouse To Move");
 	m_welcomeMessage.setStyle(sf::Text::Underlined | sf::Text::Italic | sf::Text::Bold);
 	m_welcomeMessage.setPosition(40.0f, 40.0f);
-	m_welcomeMessage.setCharacterSize(80U);
+	m_welcomeMessage.setCharacterSize(40U);
 	m_welcomeMessage.setOutlineColor(sf::Color::Red);
 	m_welcomeMessage.setFillColor(sf::Color::Black);
 	m_welcomeMessage.setOutlineThickness(3.0f);
@@ -221,4 +223,16 @@ void Game::move()
 			}
 		}
 	}
+}
+
+void Game::setupAudio()
+{
+	if (!m_buffer.loadFromFile("C:\ASSETS\AUDIO\helictopter.wav"))
+	{
+		std::cout << " problem with audio ";
+	}
+	m_sound.setBuffer(m_buffer);
+	m_sound.setLoop(true);
+	m_sound.play();
+
 }
