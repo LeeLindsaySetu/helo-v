@@ -108,14 +108,14 @@ void Game::processMouseBUttonUp(sf::Event t_event)
 	{
 		m_direction = Direction::Right;
 		m_helicopterSprite.setScale(1.0F, 1.0F);
-		m_frameIncrement = 0.10f;
+		m_frameIncrement = 0.50f;
 		
 	}
 	if (m_position.x > m_desiredPosition.x)
 	{
 		m_direction = Direction::Left;
 		m_helicopterSprite.setScale(-1.0f, 1.0f);
-		m_frameIncrement = 0.10f;
+		m_frameIncrement = 0.50f;
 	}
 	heading = m_desiredPosition - m_position;
 	magnitude = std::sqrtf(heading.x * heading.x + heading.y * heading.y);
@@ -210,7 +210,7 @@ void Game::move()
 			{
 				m_direction = Direction::None;
 				m_velocity = sf::Vector2f{ 0.0f, 0.0f };
-				m_frameIncrement = 0.50f;
+				m_frameIncrement = 0.20f;
 			}
 		}
 		if (m_direction == Direction::Right)
@@ -219,7 +219,7 @@ void Game::move()
 			{
 				m_direction = Direction::None;
 				m_velocity = sf::Vector2f{ 0.0f, 0.0f };
-				m_frameIncrement = 0.50f;
+				m_frameIncrement = 0.20f;
 			}
 		}
 	}
